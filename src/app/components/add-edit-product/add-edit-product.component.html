@@ -1,0 +1,25 @@
+<div class="row mt-5 justify-content-center">
+    <div class="col-lg-3 mx-auto col-md-12">
+        <div class="card bg-light mb-4" style="max-width: 25rem;">
+            <div class="card-header text-center">Agregar Producto</div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="addEmpleado()">
+                    <input formControlName="name" type="text" class="form-control mt-2" placeholder="Ingrese Nombre">
+                    <span  *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched" >El campo nombre es <strong>requerido</strong></span>
+                    <input formControlName="lastname" type="text" class="form-control mt-2" placeholder="Ingrese Apellidos">
+                    <span *ngIf="form.get('lastname')?.hasError('required')&& form.get('lastname')?.touched">El campo Apellidos es <strong>requerido</strong></span>
+                    <input formControlName="Dateofbirth" type="date" class="form-control mt-2" placeholder="Ingrese Fecha de Nacimiento dd/mm/aa">
+                    <span *ngIf="form.get('Dateofbirth')?.hasError('required')&& form.get('Dateofbirth')?.touched">El campo Fecha de nacimiento es <strong>requerido</strong></span>
+                    <div class="row mt-3 text-center">
+                        <div class="col-lg-6">
+                            <button type="button" class="btn btn-secondary btn-sm ms-2 " routerLink="">Volver</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button [disabled]="form.invalid" type="submit" class="btn btn-success btn-sm">Aceptar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
