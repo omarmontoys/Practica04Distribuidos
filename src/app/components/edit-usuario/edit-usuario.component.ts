@@ -1,0 +1,85 @@
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Usuario } from 'src/app/interfaces/usuario';
+import { EmpleadosService } from '../list-products/empleados.service';
+import { ActivatedRoute } from '@angular/router';
+import { Respuesta } from '../list-products/empleados.model';
+
+@Component({
+  selector: 'app-edit-usuario',
+  templateUrl: './edit-usuario.component.html',
+  styleUrls: ['./edit-usuario.component.css'],
+})
+export class EditUsuarioComponent implements OnInit {
+  usuarios: Usuario[] = [];
+  usuarioEditando: Usuario | null = null;
+  form: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private usuarioService: EmpleadosService,
+    private route: ActivatedRoute
+  ) {
+    this.form = this.fb.group({
+      nombre: [''],
+      apellidos: [''],
+      clave: [''],
+    });
+  }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      const correo = params.get('correo');
+      if (correo) {
+        this.loadUsuario(correo);
+      }
+    });
+  }
+
+  private loadUsuario(correo: string): void {
+    this.usuarioService.getUsuarioById(correo).subscribe(
+      (response: Respuesta) => {
+        if (
+          response.estado == 1 &&
+          response.mensaje == 'Usuario encontrado' &&
+          response.usuarios &&
+          response.usuarios.length > 0
+        ) {
+          this.usuarioEditando = response.usuarios[0];
+          this.populateForm();
+        } else {
+          console.error('Respuesta no válida:', response);
+        }
+      },
+      (error) => {
+        console.error('Error al cargar el usuario', error);
+      }
+    );
+  }
+
+  private populateForm(): void {
+    if (this.usuarioEditando) {
+      this.form.patchValue({
+        nombre: this.usuarioEditando.nombre,
+        apellidos: this.usuarioEditando.apellidos,
+        clave: '',
+      });
+    }
+  }
+  guardarCambios(): void {
+    if (this.usuarioEditando) {
+      const correo = this.usuarioEditando.correo; // Asegúrate de tener una propiedad 'correo' en tu objeto Usuario.
+      const usuarioModificado = this.form.value;
+
+      this.usuarioService.updateUsuario(correo, usuarioModificado).subscribe(
+        (response: Respuesta) => {
+          console.log('Usuario actualizado con éxito', response);
+          // Puedes redirigir al usuario a la página de detalles o hacer alguna otra acción después de la actualización.
+        },
+        (error) => {
+          console.error('Error al actualizar el usuario', error);
+        }
+      );
+    }
+  }
+}

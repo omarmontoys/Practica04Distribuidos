@@ -1,0 +1,39 @@
+.outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.inner-container {
+  padding: 20px;
+  /* Reduje el padding para un diseño más compacto */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  /* Ajusta según sea necesario */
+  margin: 0 auto;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form label {
+  margin-bottom: 8px;
+  /* Ajusta según sea necesario */
+}
+
+.login-form input {
+  padding: 10px;
+  /* Ajusta según sea necesario */
+  margin-bottom: 15px;
+  width: 115%;
+}
+
+.login-form button {
+  margin-top: 20px;
+}

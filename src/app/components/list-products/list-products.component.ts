@@ -1,24 +1,60 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/interfaces/product';
+import { EmpleadosService } from './empleados.service';
+import { Usuario } from './empleados.model';
 
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
-  styleUrls: ['./list-products.component.css']
+  styleUrls: ['./list-products.component.css'],
 })
 export class ListProductsComponent implements OnInit {
-  listProducts: Product[] = [
-    { id:1, name: "Juan", lastname: 'Gomez', Dateofbirth:         "20 / 12 / 2002" },
-    { id:2, name: "Jesus", lastname: 'Guijarro', Dateofbirth:     "25 / 1  / 2002" },
-    { id:3, name: "Hector", lastname: 'Isaac', Dateofbirth:       "2  / 2  / 2002" },
-    { id:4, name: "Francisco", lastname: 'Escobedo', Dateofbirth: "23 / 6  / 2002"},
-    { id:5, name: "Ana", lastname: 'Rebolloso', Dateofbirth:      "12 / 4  / 2002" },
-    { id:6, name:"Evely", lastname:'Hernandez', Dateofbirth:      "30 / 8  / 2002"}
-  ];
-  constructor() {
-    
-  }
+  usuarios: Usuario[] = [];
+  nuevoUsuario: Usuario = {
+    nombre: '',
+    apellidos: '',
+    usuario: '',
+    correo: '',
+    clave: '',
+  };
+  usuarioEditando: Usuario | null = null;
+
+  constructor(private usuarioService: EmpleadosService) {}
+
   ngOnInit(): void {
-      
-    }
+    this.consultarTodosLosEmpleados();
+  }
+
+  eliminarUsuario(correo: string) {
+    this.usuarioService.deleteUsuario(correo).subscribe({
+      next: (v) => {
+        console.log('Usuario eliminado con éxito:', v);
+        this.consultarTodosLosEmpleados();
+      },
+      error: (e) => {
+        console.error('Error al eliminar usuario:', e);
+      },
+      complete: () =>
+        console.info(
+          'Se completa la llamada de eliminación: Si hay error o no'
+        ),
+    });
+  }
+
+  consultarTodosLosEmpleados() {
+    this.usuarioService.getAllUsuarios().subscribe({
+      next: (v) => {
+        if (v && v.usuarios) {
+          this.usuarios = v.usuarios;
+        } else {
+          console.error(
+            'La respuesta del servicio no tiene la estructura esperada.'
+          );
+        }
+      },
+      error: (e) => {
+        console.error('Error:', e);
+      },
+      complete: () => console.info('Se completa la llamada: Si hay error o no'),
+    });
+  }
 }
