@@ -6,7 +6,7 @@ import { Respuesta, Usuario } from './empleados.model';
   providedIn: 'root',
 })
 export class EmpleadosService {
-  private urlApi = 'https://api-usuarios-mongo.onrender.com/socios/v1/users/';
+  private urlApi = 'https://api-users-finalproject.onrender.com/socios/v1/users/';
 
   constructor(private http: HttpClient) {}
 

@@ -6,32 +6,18 @@
           <h2 class="text-center">Inicio de Sesión</h2>
 
           <div class="form-group">
-            <label for="inputEmail" class="form-label"
-              >Correo Electrónico</label
-            >
-            <input
-              type="email"
-              class="form-control"
-              id="inputEmail"
-              placeholder="Ingrese su correo electrónico"
-            />
+            <label for="inputEmail" class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese su correo electrónico"
+              [(ngModel)]="correo" />
           </div>
 
           <div class="form-group">
             <label for="inputPassword" class="form-label">Contraseña</label>
-            <input
-              type="password"
-              class="form-control"
-              id="inputPassword"
-              placeholder="Ingrese su contraseña"
-            />
+            <input type="password" class="form-control" id="inputPassword" placeholder="Ingrese su contraseña"
+              [(ngModel)]="clave" />
           </div>
 
-          <button
-            type="submit"
-            class="btn btn-primary btn-block"
-            routerLink="/usuarios"
-          >
+          <button type="button" class="btn btn-primary btn-block" (click)="onSubmit()">
             Iniciar Sesión
           </button>
         </div>
