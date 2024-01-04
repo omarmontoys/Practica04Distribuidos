@@ -12,8 +12,9 @@ import { ListEmpleadosComponent } from '../components/list-empleados/list-emplea
 import { AddEmpleadosComponent } from '../components/add-empleados/add-empleados.component';
 import { LoginUsuarioComponent } from '../components/login-usuario/login-usuario.component';
 import { EditUsuarioComponent } from '../components/edit-usuario/edit-usuario.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { TokenInterceptor } from './api-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,11 @@ import { CookieService } from 'ngx-cookie-service';
     HttpClientModule,
     FormsModule,
   ],
-  providers: [CookieService],
+  providers: [CookieService,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
