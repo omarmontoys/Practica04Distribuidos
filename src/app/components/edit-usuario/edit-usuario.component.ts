@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { EmpleadosService } from '../../services/empleados.service';
 import { ActivatedRoute } from '@angular/router';
-import { Respuesta } from '../list-empleados/empleados.model';
+import { Respuesta } from '../../interfaces/empleados.model';
 
 @Component({
   selector: 'app-edit-usuario',
