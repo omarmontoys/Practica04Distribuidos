@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Respuesta, Usuario } from './login.model';
+import { CookieService } from 'ngx-cookie-service';
+import { Respuesta } from './login.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,22 +11,23 @@ export class LoginserviceService {
   private urlApi = 'https://api-users-finalproject.onrender.com/socios/v1/users/';
   private tokenKey = 'jwt';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   login(correo: string, clave: string): Observable<Respuesta> {
     const body = { correo, clave };
     return this.http.post<Respuesta>(`${this.urlApi}login`, body);
   }
+
   setToken(token: string): void {
-    localStorage.setItem(this.tokenKey, token);
+    this.cookieService.set(this.tokenKey, token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    return this.cookieService.get(this.tokenKey);
   }
 
   logout(): void {
-    // Elimina el token al cerrar sesión
-    localStorage.removeItem(this.tokenKey);
+    // Elimina la cookie al cerrar sesión
+    this.cookieService.delete(this.tokenKey);
   }
 }

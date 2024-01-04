@@ -3,5 +3,6 @@ export interface Usuario {
   apellidos: string;
   usuario: string;
   correo: string;
-  clave: string; // Opcional si es necesario para crear o actualizar
+  clave: string;
+  createdBy: string;
 }

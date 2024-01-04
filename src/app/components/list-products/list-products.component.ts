@@ -15,6 +15,7 @@ export class ListProductsComponent implements OnInit {
     usuario: '',
     correo: '',
     clave: '',
+    createdBy: '',
   };
   usuarioEditando: Usuario | null = null;
 
