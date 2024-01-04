@@ -32,11 +32,7 @@ import { TokenInterceptor } from './api-interceptor.service';
     HttpClientModule,
     FormsModule,
   ],
-  providers: [CookieService,{
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true,
-    }],
+  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -19,11 +19,12 @@ export class EmpleadosService {
       'Content-Type': 'application/json',
       'Authorization': `bearer ${token}`,
     });
+
   }
 
   getAllUsuarios(): Observable<Respuesta> {
     // Agrega las cabeceras con el token a la solicitud
-    return this.http.get<Respuesta>(this.urlApi);
+    return this.http.get<Respuesta>(this.urlApi,{ headers: this.getHeaders() });
     
   }
 
