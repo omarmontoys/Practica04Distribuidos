@@ -1,6 +1,6 @@
 // login-usuario.component.ts
 import { Component } from '@angular/core';
-import { LoginserviceService } from './loginservice.service';
+import { LoginserviceService } from '../../services/loginservice.service';
 import { Router } from '@angular/router';
 
 @Component({

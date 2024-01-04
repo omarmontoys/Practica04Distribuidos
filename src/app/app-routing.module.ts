@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListProductsComponent } from './components/list-products/list-products.component';
-import { AddEditProductComponent } from './components/add-edit-product/add-edit-product.component';
+import { ListEmpleadosComponent } from './components/list-empleados/list-empleados.component';
 import { LoginUsuarioComponent } from './components/login-usuario/login-usuario.component';
 import { EditUsuarioComponent } from './components/edit-usuario/edit-usuario.component';
+import { AddEmpleadosComponent } from './components/add-empleados/add-empleados.component';
 
 const routes: Routes = [
   { path: '', component: LoginUsuarioComponent },
-  { path: 'usuarios', component: ListProductsComponent },
-  { path: 'add', component: AddEditProductComponent },
+  { path: 'usuarios', component: ListEmpleadosComponent },
+  { path: 'add', component: AddEmpleadosComponent },
   { path: 'edit/:correo', component: EditUsuarioComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

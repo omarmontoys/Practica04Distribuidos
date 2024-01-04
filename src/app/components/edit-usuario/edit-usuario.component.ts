@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/interfaces/usuario';
-import { EmpleadosService } from '../list-products/empleados.service';
+import { EmpleadosService } from '../../services/empleados.service';
 import { ActivatedRoute } from '@angular/router';
-import { Respuesta } from '../list-products/empleados.model';
+import { Respuesta } from '../list-empleados/empleados.model';
 
 @Component({
   selector: 'app-edit-usuario',

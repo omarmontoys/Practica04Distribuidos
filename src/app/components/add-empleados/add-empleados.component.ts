@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/interfaces/usuario';
-import { EmpleadosService } from '../list-products/empleados.service';
+import { EmpleadosService } from '../../services/empleados.service';
 
 @Component({
   selector: 'app-add-edit-product',
-  templateUrl: './add-edit-product.component.html',
-  styleUrls: ['./add-edit-product.component.css'],
+  templateUrl: './add-empleados.component.html',
+  styleUrls: ['./add-empleados.component.css'],
 })
-export class AddEditProductComponent implements OnInit {
+export class AddEmpleadosComponent implements OnInit {
   usuarios: Usuario[] = [];
   usuarioEditando: Usuario | null = null;
   form: FormGroup;

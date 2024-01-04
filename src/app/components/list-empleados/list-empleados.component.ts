@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { EmpleadosService } from './empleados.service';
+import { EmpleadosService } from '../../services/empleados.service';
 import { Usuario } from './empleados.model';
 
 @Component({
-  selector: 'app-list-products',
-  templateUrl: './list-products.component.html',
-  styleUrls: ['./list-products.component.css'],
+  selector: 'app-list-empleados',
+  templateUrl: './list-empleados.component.html',
+  styleUrls: ['./list-empleados.component.css'],
 })
-export class ListProductsComponent implements OnInit {
+export class ListEmpleadosComponent implements OnInit {
   usuarios: Usuario[] = [];
   nuevoUsuario: Usuario = {
     nombre: '',

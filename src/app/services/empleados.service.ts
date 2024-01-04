@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, finalize } from 'rxjs';
-import { Respuesta, Usuario } from './empleados.model';
-import { LoginserviceService } from '../login-usuario/loginservice.service';
+import { Respuesta, Usuario } from '../components/list-empleados/empleados.model';
+import { LoginserviceService } from './loginservice.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,8 +19,6 @@ export class EmpleadosService {
       'Content-Type': 'application/json',
       'Authorization': `bearer ${token}`,
     });
-
-
   }
 
   getAllUsuarios(): Observable<Respuesta> {
