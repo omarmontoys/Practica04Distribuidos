@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, finalize } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Respuesta, Usuario } from '../interfaces/empleados.model';
 import { LoginserviceService } from './loginservice.service';
 
@@ -10,22 +10,17 @@ import { LoginserviceService } from './loginservice.service';
 export class EmpleadosService {
   private urlApi = 'https://api-users-finalproject.onrender.com/socios/v1/users/';
 
-  constructor(private http: HttpClient,private loginService: LoginserviceService) {}
+  constructor(private http: HttpClient, private loginService: LoginserviceService) {}
 
-  private getHeaders(): HttpHeaders {
-    const token = this.loginService.getToken();
-    console.log('token:', token)// Obtén el token almacenado en localStorage
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `bearer ${token}`,
-    });
-
-  }
+  private getToken(): string {
+  return this.loginService.getToken() || 'no hay token';
+}
 
   getAllUsuarios(): Observable<Respuesta> {
-    // Agrega las cabeceras con el token a la solicitud
-    return this.http.get<Respuesta>(this.urlApi,{ headers: this.getHeaders() });
-    
+    const token = this.getToken();
+    const body = { token }; // Construye el cuerpo de la solicitud con el token
+    console.log(body)
+    return this.http.post<Respuesta>(this.urlApi, body);
   }
 
   getUsuarioById(correo: string): Observable<Respuesta> {
@@ -35,7 +30,7 @@ export class EmpleadosService {
 
   createUsuario(usuario: Usuario): Observable<Respuesta> {
     // Agrega las cabeceras con el token a la solicitud
-    return this.http.post<Respuesta>(this.urlApi, usuario);
+    return this.http.post<Respuesta>(`${this.urlApi}/add`, usuario);
   }
 
   updateUsuario(correo: string, usuario: Usuario): Observable<Respuesta> {

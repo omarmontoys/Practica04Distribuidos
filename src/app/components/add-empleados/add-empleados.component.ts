@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { EmpleadosService } from '../../services/empleados.service';
+import { LoginserviceService } from 'src/app/services/loginservice.service';
 
 @Component({
   selector: 'app-add-edit-product',
@@ -15,7 +16,8 @@ export class AddEmpleadosComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private usuarioService: EmpleadosService
+    private usuarioService: EmpleadosService,
+    private loginService: LoginserviceService,
   ) {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
@@ -47,23 +49,29 @@ export class AddEmpleadosComponent implements OnInit {
   }
 
   agregarUsuario() {
-    // Verifica si el formulario es válido antes de realizar la acción
-    if (this.form.valid) {
-      this.usuarioService.createUsuario(this.form.value).subscribe({
-        next: (v) => {
-          console.log('Usuario agregado con éxito:', v);
-          this.consultarTodosLosEmpleados();
-          // Limpiar el formulario o realizar otras acciones después de agregar el usuario
-          this.form.reset(); // Esto limpiará el formulario
-        },
-        error: (e) => {
-          console.error('Error al agregar usuario:', e);
-        },
-        complete: () =>
-          console.info('Se completa la llamada de agregado: Si hay error o no'),
-      });
-    } else {
-      console.error('Formulario no válido. No se puede agregar el usuario.');
-    }
+  // Verifica si el formulario es válido antes de realizar la acción
+  if (this.form.valid) {
+    const nuevoUsuarioConToken = {
+      ...this.form.value,  // Copia los datos del formulario
+      token: this.loginService.getToken(),  // Agrega el token al objeto
+    };
+
+    this.usuarioService.createUsuario(nuevoUsuarioConToken).subscribe({
+      next: (v) => {
+        console.log('Usuario agregado con éxito:', v);
+        this.consultarTodosLosEmpleados();
+        // Limpiar el formulario o realizar otras acciones después de agregar el usuario
+        this.form.reset(); // Esto limpiará el formulario
+      },
+      error: (e) => {
+        console.error('Error al agregar usuario:', e);
+      },
+      complete: () =>
+        console.info('Se completa la llamada de agregado: Si hay error o no'),
+    });
+  } else {
+    console.error('Formulario no válido. No se puede agregar el usuario.');
   }
+}
+
 }

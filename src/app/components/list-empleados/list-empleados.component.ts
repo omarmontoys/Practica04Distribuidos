@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpleadosService } from '../../services/empleados.service';
 import { Usuario } from '../../interfaces/empleados.model';
+import { LoginserviceService } from 'src/app/services/loginservice.service';
 
 @Component({
   selector: 'app-list-empleados',
@@ -16,14 +17,21 @@ export class ListEmpleadosComponent implements OnInit {
     correo: '',
     clave: '',
     createdBy: '',
+    token: '',  // Inicializa el token como una cadena vacía
   };
   usuarioEditando: Usuario | null = null;
 
-  constructor(private usuarioService: EmpleadosService) {}
+  constructor(private usuarioService: EmpleadosService, private loginService: LoginserviceService) {}
 
   ngOnInit(): void {
     this.consultarTodosLosEmpleados();
+    this.setToken();  // Llamada para establecer el token antes de hacer una solicitud
   }
+
+  setToken() {
+    this.nuevoUsuario.token = this.loginService.getToken() || '';  // Asigna el token al objeto nuevoUsuario
+  }
+  
 
   eliminarUsuario(correo: string) {
     this.usuarioService.deleteUsuario(correo).subscribe({
@@ -39,6 +47,9 @@ export class ListEmpleadosComponent implements OnInit {
           'Se completa la llamada de eliminación: Si hay error o no'
         ),
     });
+  }
+  salir() {
+    this.loginService.logout()
   }
 
   consultarTodosLosEmpleados() {
@@ -59,3 +70,4 @@ export class ListEmpleadosComponent implements OnInit {
     });
   }
 }
+

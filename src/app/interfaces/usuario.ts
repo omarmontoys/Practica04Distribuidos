@@ -5,4 +5,5 @@ export interface Usuario {
   correo: string;
   clave: string;
   createdBy: string;
+  token: string;
 }

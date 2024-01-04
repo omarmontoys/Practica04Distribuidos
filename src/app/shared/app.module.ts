@@ -24,6 +24,7 @@ import { TokenInterceptor } from './api-interceptor.service';
     AddEmpleadosComponent,
     LoginUsuarioComponent,
     EditUsuarioComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -31,8 +32,9 @@ import { TokenInterceptor } from './api-interceptor.service';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    
   ],
-  providers: [CookieService],
+  providers: [CookieService, ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
