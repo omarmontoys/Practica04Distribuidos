@@ -8,7 +8,8 @@ import { Respuesta } from '../interfaces/login.model';
   providedIn: 'root',
 })
 export class LoginserviceService {
-  private urlApi = ' http://localhost:3001/socios/v1/users/';
+  private urlApi =
+    ' https://api-users-finalproject.onrender.com/socios/v1/users/';
   private tokenKey = 'jwt';
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}

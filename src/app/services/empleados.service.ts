@@ -8,7 +8,8 @@ import { LoginserviceService } from './loginservice.service';
   providedIn: 'root',
 })
 export class EmpleadosService {
-  private urlApi = 'http://localhost:3001/socios/v1/users/';
+  private urlApi =
+    'https://api-users-finalproject.onrender.com/socios/v1/users/';
 
   constructor(
     private http: HttpClient,
