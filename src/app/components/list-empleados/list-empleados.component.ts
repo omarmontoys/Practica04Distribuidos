@@ -17,39 +17,58 @@ export class ListEmpleadosComponent implements OnInit {
     correo: '',
     clave: '',
     createdBy: '',
-    token: '',  // Inicializa el token como una cadena vacía
+    token: '', // Inicializa el token como una cadena vacía
   };
   usuarioEditando: Usuario | null = null;
 
-  constructor(private usuarioService: EmpleadosService, private loginService: LoginserviceService) {}
+  constructor(
+    private usuarioService: EmpleadosService,
+    private loginService: LoginserviceService
+  ) {}
 
   ngOnInit(): void {
     this.consultarTodosLosEmpleados();
-    this.setToken();  // Llamada para establecer el token antes de hacer una solicitud
+    this.setToken(); // Llamada para establecer el token antes de hacer una solicitud
   }
 
   setToken() {
-    this.nuevoUsuario.token = this.loginService.getToken() || '';  // Asigna el token al objeto nuevoUsuario
+    this.nuevoUsuario.token = this.loginService.getToken() || ''; // Asigna el token al objeto nuevoUsuario
   }
-  
 
   eliminarUsuario(correo: string) {
-    this.usuarioService.deleteUsuario(correo).subscribe({
-      next: (v) => {
-        console.log('Usuario eliminado con éxito:', v);
-        this.consultarTodosLosEmpleados();
-      },
-      error: (e) => {
-        console.error('Error al eliminar usuario:', e);
-      },
-      complete: () =>
-        console.info(
-          'Se completa la llamada de eliminación: Si hay error o no'
-        ),
-    });
+    // Muestra un cuadro de diálogo de confirmación
+    const confirmacion = confirm(
+      '¿Estás seguro de que deseas eliminar este usuario?'
+    );
+
+    if (confirmacion) {
+      this.usuarioService.deleteUsuario(correo).subscribe({
+        next: (v) => {
+          console.log('Usuario eliminado con éxito:', v);
+          this.consultarTodosLosEmpleados();
+          // Muestra un alert indicando que el usuario se eliminó con éxito
+          alert('Éxito: Usuario eliminado con éxito.');
+        },
+        error: (e) => {
+          console.error('Error al eliminar usuario:');
+          // Muestra un alert indicando que hubo un error al eliminar el usuario
+          alert('Error: Hubo un error al eliminar el usuario.');
+        },
+        complete: () =>
+          console.info(
+            'Se completa la llamada de eliminación: Si hay error o no'
+          ),
+      });
+    } else {
+      // Muestra un alert indicando que se canceló la eliminación del usuario
+      alert('Cancelado: No se eliminó el usuario.');
+    }
   }
+
   salir() {
-    this.loginService.logout()
+    // Lógica para cerrar sesión y redirigir al usuario a la página de inicio de sesión
+    this.loginService.logout();
+    alert('Sesión cerrada correctamente.');
   }
 
   consultarTodosLosEmpleados() {
@@ -65,9 +84,10 @@ export class ListEmpleadosComponent implements OnInit {
       },
       error: (e) => {
         console.error('Error:', e);
+        // Muestra un alert indicando que hubo un error al obtener la lista de usuarios
+        alert('Error: Hubo un error al obtener la lista de usuarios.');
       },
       complete: () => console.info('Se completa la llamada: Si hay error o no'),
     });
   }
 }
-

@@ -5,10 +5,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { Respuesta } from '../interfaces/login.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginserviceService {
-  private urlApi = 'https://api-users-finalproject.onrender.com/socios/v1/users/';
+  private urlApi = ' http://localhost:3001/socios/v1/users/';
   private tokenKey = 'jwt';
 
   constructor(private http: HttpClient, private cookieService: CookieService) {}
@@ -23,11 +23,12 @@ export class LoginserviceService {
   }
 
   getToken(): string | null {
-    return this.cookieService.get(this.tokenKey);
+    const token = this.cookieService.get(this.tokenKey);
+    return token ? token : null;
   }
 
   logout(): void {
     // Elimina la cookie al cerrar sesión
-    this.cookieService.delete(this.tokenKey);
+    this.cookieService.delete(this.tokenKey, '/', 'localhost');
   }
 }

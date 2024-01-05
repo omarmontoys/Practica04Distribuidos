@@ -66,18 +66,22 @@ export class EditUsuarioComponent implements OnInit {
       });
     }
   }
+
   guardarCambios(): void {
     if (this.usuarioEditando) {
-      const correo = this.usuarioEditando.correo; // Asegúrate de tener una propiedad 'correo' en tu objeto Usuario.
+      const correo = this.usuarioEditando.correo;
       const usuarioModificado = this.form.value;
 
       this.usuarioService.updateUsuario(correo, usuarioModificado).subscribe(
         (response: Respuesta) => {
           console.log('Usuario actualizado con éxito', response);
-          // Puedes redirigir al usuario a la página de detalles o hacer alguna otra acción después de la actualización.
+          // Muestra un alert indicando que el usuario se actualizó con éxito
+          alert('Éxito: Usuario actualizado con éxito.');
         },
         (error) => {
           console.error('Error al actualizar el usuario', error);
+          // Muestra un alert indicando que hubo un error al actualizar el usuario
+          alert('Error: Hubo un error al actualizar el usuario.');
         }
       );
     }

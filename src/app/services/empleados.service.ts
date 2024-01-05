@@ -8,18 +8,21 @@ import { LoginserviceService } from './loginservice.service';
   providedIn: 'root',
 })
 export class EmpleadosService {
-  private urlApi = 'https://api-users-finalproject.onrender.com/socios/v1/users/';
+  private urlApi = 'http://localhost:3001/socios/v1/users/';
 
-  constructor(private http: HttpClient, private loginService: LoginserviceService) {}
+  constructor(
+    private http: HttpClient,
+    private loginService: LoginserviceService
+  ) {}
 
   private getToken(): string {
-  return this.loginService.getToken() || 'no hay token';
-}
+    return this.loginService.getToken() || 'no hay token';
+  }
 
   getAllUsuarios(): Observable<Respuesta> {
     const token = this.getToken();
     const body = { token }; // Construye el cuerpo de la solicitud con el token
-    console.log(body)
+    console.log(body);
     return this.http.post<Respuesta>(this.urlApi, body);
   }
 
