@@ -15,6 +15,7 @@ import { EditUsuarioComponent } from '../components/edit-usuario/edit-usuario.co
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { TokenInterceptor } from './api-interceptor.service';
+import { RegisterUsuarioComponent } from '../components/register-usuario/register-usuario.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { TokenInterceptor } from './api-interceptor.service';
     AddEmpleadosComponent,
     LoginUsuarioComponent,
     EditUsuarioComponent,
-    
+    RegisterUsuarioComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,9 +33,8 @@ import { TokenInterceptor } from './api-interceptor.service';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    
   ],
-  providers: [CookieService, ],
+  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

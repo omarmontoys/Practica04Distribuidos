@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { Respuesta } from '../interfaces/login.model';
+import { Respuesta, Usuario } from '../interfaces/login.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,10 @@ export class LoginserviceService {
   login(correo: string, clave: string): Observable<Respuesta> {
     const body = { correo, clave };
     return this.http.post<Respuesta>(`${this.urlApi}login`, body);
+  }
+
+  createUsuario(usuario: Usuario): Observable<Respuesta> {
+    return this.http.post<Respuesta>(`${this.urlApi}register`, usuario);
   }
 
   setToken(token: string): void {

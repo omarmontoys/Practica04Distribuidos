@@ -17,7 +17,7 @@ export class LoginUsuarioComponent {
     private router: Router
   ) {}
 
-  onSubmit() {
+  login() {
     if (!this.correo || !this.clave) {
       // Muestra un alert si el correo o la contraseña están vacíos
       alert('Error: Por favor, ingresa el correo y la contraseña.');
@@ -52,5 +52,8 @@ export class LoginUsuarioComponent {
         }
       }
     );
+  }
+  register() {
+    this.router.navigate(['/register']);
   }
 }

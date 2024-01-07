@@ -16,10 +16,14 @@
             <input type="password" class="form-control" id="inputPassword" placeholder="Ingrese su contraseña"
               [(ngModel)]="clave" />
           </div>
-
-          <button type="button" class="btn btn-primary btn-block" (click)="onSubmit()">
-            Iniciar Sesión
-          </button>
+          <div class="row d-flex justify-content-between">
+            <button type="button" class="btn btn-primary" (click)="login()">
+              Iniciar Sesión
+            </button>
+            <button type="button" class="btn btn-primary" (click)="register()">
+              Registrarme
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -4,12 +4,14 @@ import { ListEmpleadosComponent } from '../components/list-empleados/list-emplea
 import { LoginUsuarioComponent } from '../components/login-usuario/login-usuario.component';
 import { EditUsuarioComponent } from '../components/edit-usuario/edit-usuario.component';
 import { AddEmpleadosComponent } from '../components/add-empleados/add-empleados.component';
+import { RegisterUsuarioComponent } from '../components/register-usuario/register-usuario.component';
 
 const routes: Routes = [
   { path: '', component: LoginUsuarioComponent },
   { path: 'usuarios', component: ListEmpleadosComponent },
   { path: 'add', component: AddEmpleadosComponent },
   { path: 'edit/:correo', component: EditUsuarioComponent },
+  { path: 'register', component: RegisterUsuarioComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
